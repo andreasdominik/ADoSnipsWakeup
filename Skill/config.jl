@@ -29,6 +29,7 @@ const SLOT_SOUND = "Ringtone"
 const INI_SOUNDS_DIR = "sounds_dir"
 const INI_SOUND = "default_sound"
 const INI_SOUNDS = "sounds"
+const INI_FADE_IN = "fade_in"
 
 
 # default ringtone (per siteId):
@@ -45,13 +46,6 @@ DEFAULT_SOUND = Dict("default" => Snips.getConfig(INI_SOUND))
 #
 # Language-dependent settings:
 #
-if LANG == "de"
-    Snips.registerIntentAction("wakeupCallDE", scheduleWakeupAction)
-    Snips.registerIntentAction("wakeupDeleteDE", deleteWakeupAction)
-elseif LANG == "en"
-    # Snips.registerIntentAction("pleaseRepeatEN", templateAction)
-else
-    Snips.registerIntentAction("wakeupCallDE", scheduleWakeupAction)
-    Snips.registerIntentAction("wakeupDeleteDE", deleteWakeupAction)
-end
+Snips.registerIntentAction("wakeupCall", scheduleWakeupAction)
+Snips.registerIntentAction("wakeupDelete", deleteWakeupAction)
 Snips.registerTriggerAction("ADoSnipsWakeup", triggerWakeup)
