@@ -1,9 +1,3 @@
-docs/build/
-travis.key
 Sounds/Originals
-Sounds/Alarm
-Sounds/Birds
-Sounds/D-Major
-Sounds/Elegie
-Sounds/Moonlight
-Sounds/Traeumerei
+docs/build/
+config.ini
