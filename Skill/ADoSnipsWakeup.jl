@@ -19,6 +19,7 @@ import .SnipsHermesQnD
 Snips = SnipsHermesQnD
 
 const SOUNDS_PATH = joinpath(APP_DIR, "Sounds")
+const PLAY_SCRIPT = joinpath(APP_DIR, "Skill/publishPlayRequest.sh")
 
 Snips.readConfig("$APP_DIR")
 Snips.readConfig("$FRAMEWORK_DIR")

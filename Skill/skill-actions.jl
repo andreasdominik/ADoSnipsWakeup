@@ -139,60 +139,7 @@ function triggerWakeup(topic, payload)
     haskey(trigger, :media) || return false
     haskey(trigger, :fade_in) || return false
 
-    # start a listener for the hotword in room siteId:
-    #
-    # hotwordChannel = Channel(32)
-    # @async waitForHotword(trigger[:room], hotwordChannel)
-    #
-    # # play the snippets:
-    # #
-    # snippet = 1
-    # playIt = true
-    # while playIt
-    #     wavFile = "$dirName/snippet$(lpad(snippet,3,'0')).wav"
-    #     Snips.printDebug("WAV: $wavFile")
-    #     if !isfile(wavFile)
-    #         playIt = false
-    #     else
-    #         rId = "wakeup-call-$snippet"
-    #         Snips.publishMQTTfile("hermes/audioServer/$(trigger[:room])/playBytes/$rId",
-    #                               wavFile)
-    #
-    #         playing = true
-    #         while playing
-    #             (topic, payload) = Snips.readOneMQTT("hermes/audioServer/$(trigger[:room])/playFinished")
-    #             if (payload isa Dict) && haskey(payload, :id) && (payload[:id] == rId)
-    #                 Snips.printDebug("finished detected: $payload")
-    #                 playing = false
-    #             end
-    #         end
-    #         if isready(hotwordChannel)
-    #             siteId = take!(hotwordChannel)
-    #             playIt = false
-    #         end
-    #         snippet += 1
-    #     end
-    # end
-
-    # publish play request:
-    #
-
-
+    cmd = `$PLAY_SCRIPT $(trigger[:media]) $(trigger[:fade_in]) $(trigger[:room])`
+    Snips.tryrun(cmd; wait=true)
     Snips.publishSay("$(Snips.langText(:good_morning)) $(Snips.readableDateTime(Dates.now()))")
-end
-
-
-function waitForHotword(siteId, hotwordChannel)
-
-    wait4hotword = true
-    payload = Dict()
-    while wait4hotword
-        (topic, payload) = Snips.readOneMQTT("hermes/hotword/default/detected")
-
-        if payload isa Dict && haskey(payload, :siteId) && payload[:siteId] == siteId
-            wait4hotword = false
-        end
-    end
-    Snips.printDebug("put siteId to Channel: $payload[:siteId]")
-    put!(hotwordChannel, payload[:siteId])
 end
