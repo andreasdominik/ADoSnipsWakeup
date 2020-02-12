@@ -18,6 +18,7 @@ include("$FRAMEWORK_DIR/SnipsHermesQnD/src/SnipsHermesQnD.jl")
 import .SnipsHermesQnD
 Snips = SnipsHermesQnD
 
+const SOUNDS_PATH = joinpath(APP_DIR, "Sounds")
 
 Snips.readConfig("$APP_DIR")
 Snips.readConfig("$FRAMEWORK_DIR")

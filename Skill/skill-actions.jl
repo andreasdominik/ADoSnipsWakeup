@@ -22,57 +22,63 @@ function scheduleWakeupAction(topic, payload)
     #
     Snips.printLog("action scheduleWakeupAction() started.")
 
+    # get time and sound from slot:
+    #
+    wakeupTime = Snips.readTimeFromSlot(payload, SLOT_TIME)
+    soundName = Snips.extractSlotValue(payload, SLOT_SOUND)
+    siteId = payload[:siteId]
+
     # values from config.ini:
     #
-    sounds = Snips.getConfig(INI_SOUNDS, multiple = true)
-    if sounds == nothing
+    sound = Snips.getConfig(soundName)
+    if sound == nothing
+        if haskey(DEFAULT_SOUND, siteId)
+            soundName = DEFAULT_SOUND[siteId]
+            sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
+        end
+    end
+    if sound == nothing
+        soundName = Snips.getConfig(INI_DEFAUT_SOUND)
+        sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
+    end
+    if sound == nothing
         Snips.publishEndSession(:no_sounds)
         return true
     end
-
-    soundDir = Snips.getConfig(INI_SOUNDS_DIR)
-    if soundDir == nothing
-        Snips.publishEndSession(:no_sounds_dir)
+    if !isfile(sound)
+        Snips.publishEndSession(:no_sound_file)
         return true
     end
 
 
-    # get time from slot:
-    #
-    wakeupTime = Snips.readTimeFromSlot(payload, SLOT_TIME)
-    sound = Snips.extractSlotValue(payload, SLOT_SOUND)
-    siteId = payload[:siteId]
+    fadeIn = Snips.getConfig(INI_FADE_IN)
+    if fadeIn == nothing
+        fadeIn = 0
+    end
+
 
     # check if intent is complete:
     #
-    if (wakeupTime == nothing) && (sound == nothing)
+    if wakeupTime == nothing
         Snips.publishEndSession(:dunno)
         return true
     end
-    if (wakeupTime == nothing) && (sound in SOUNDS)
-        DEFAULT_SOUND[siteId] = sound
+
+    # set default sound, if no time given:
+    #
+    if wakeupTime == nothing
+        DEFAULT_SOUND[siteId] = soundName
         Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
         return true
     end
 
-    # set sound and correct time:
+    # correct time:
     #
-    if !(sound in sounds)
-        if haskey(DEFAULT_SOUND, siteId)
-            sound = DEFAULT_SOUND[siteId]
-        else
-            sound = DEFAULT_SOUND["default"]
-        end
-    end
-
     while wakeupTime < Dates.now()
         wakeupTime += Dates.Hour(12)
     end
 
-
-
-
-    scheduleWakeup(wakeupTime, sound, siteId)
+    scheduleWakeup(wakeupTime, sound, fadeIn, siteId)
 
     Snips.publishEndSession("$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime))")
     return true
@@ -113,7 +119,8 @@ The trigger must have the following JSON format:
       "trigger" : {
         "room" : "bedrooom",
         "wakeupTime" : "timestring",
-        "wav" : "directory with sound-snippets"
+        "fade_in" : 15,
+        "media" : "path to ringtone"
       }
     }
 """
@@ -129,51 +136,47 @@ function triggerWakeup(topic, payload)
 
     haskey(trigger, :room) || return false
     haskey(trigger, :wakeupTime) || return false
-    haskey(trigger, :wav) || return false
-
-    # get device params from config.ini:
-    #
-    Snips.isConfigValid(INI_SOUNDS_DIR) || return false
-    soundDir = Snips.getConfig(INI_SOUNDS_DIR)
-    # Snips.isConfigValid($INI_SOUND) || return false
-    # sound = Snips.getConfig($INI_SOUND)
-
-    dirName = "$APP_DIR/$soundDir/$(trigger[:wav])"
+    haskey(trigger, :media) || return false
+    haskey(trigger, :fade_in) || return false
 
     # start a listener for the hotword in room siteId:
     #
-    hotwordChannel = Channel(32)
-    @async waitForHotword(trigger[:room], hotwordChannel)
-
-    # play the snippets:
+    # hotwordChannel = Channel(32)
+    # @async waitForHotword(trigger[:room], hotwordChannel)
     #
-    snippet = 1
-    playIt = true
-    while playIt
-        wavFile = "$dirName/snippet$(lpad(snippet,3,'0')).wav"
-        Snips.printDebug("WAV: $wavFile")
-        if !isfile(wavFile)
-            playIt = false
-        else
-            rId = "wakeup-call-$snippet"
-            Snips.publishMQTTfile("hermes/audioServer/$(trigger[:room])/playBytes/$rId",
-                                  wavFile)
+    # # play the snippets:
+    # #
+    # snippet = 1
+    # playIt = true
+    # while playIt
+    #     wavFile = "$dirName/snippet$(lpad(snippet,3,'0')).wav"
+    #     Snips.printDebug("WAV: $wavFile")
+    #     if !isfile(wavFile)
+    #         playIt = false
+    #     else
+    #         rId = "wakeup-call-$snippet"
+    #         Snips.publishMQTTfile("hermes/audioServer/$(trigger[:room])/playBytes/$rId",
+    #                               wavFile)
+    #
+    #         playing = true
+    #         while playing
+    #             (topic, payload) = Snips.readOneMQTT("hermes/audioServer/$(trigger[:room])/playFinished")
+    #             if (payload isa Dict) && haskey(payload, :id) && (payload[:id] == rId)
+    #                 Snips.printDebug("finished detected: $payload")
+    #                 playing = false
+    #             end
+    #         end
+    #         if isready(hotwordChannel)
+    #             siteId = take!(hotwordChannel)
+    #             playIt = false
+    #         end
+    #         snippet += 1
+    #     end
+    # end
 
-            playing = true
-            while playing
-                (topic, payload) = Snips.readOneMQTT("hermes/audioServer/$(trigger[:room])/playFinished")
-                if (payload isa Dict) && haskey(payload, :id) && (payload[:id] == rId)
-                    Snips.printDebug("finished detected: $payload")
-                    playing = false
-                end
-            end
-            if isready(hotwordChannel)
-                siteId = take!(hotwordChannel)
-                playIt = false
-            end
-            snippet += 1
-        end
-    end
+    # publish play request:
+    #
+
 
     Snips.publishSay("$(Snips.langText(:good_morning)) $(Snips.readableDateTime(Dates.now()))")
 end

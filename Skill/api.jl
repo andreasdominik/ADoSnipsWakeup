@@ -3,13 +3,14 @@
 # skill-actions:
 #
 
-function scheduleWakeup(wakeupTime, sound, siteId)
+function scheduleWakeup(wakeupTime, sound, fadeIn, siteId)
 
     topic = "qnd/trigger/andreasdominik:ADoSnipsWakeup"
 
     trigger = Dict("wakeupTime" => "$wakeupTime",
                    "room" => siteId,
-                   "wav" => sound)
+                   "fade_in" => fadeIn,
+                   "media" => sound)
     (topic, schedule) = Snips.makeSystemTrigger(topic, trigger)
     Snips.schedulerAddAction(wakeupTime, topic, schedule)
 end

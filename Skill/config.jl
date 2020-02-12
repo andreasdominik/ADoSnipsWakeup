@@ -26,15 +26,13 @@ const SLOT_SOUND = "Ringtone"
 
 # name of entry in config.ini:
 #
-const INI_SOUNDS_DIR = "sounds_dir"
-const INI_SOUND = "default_sound"
-const INI_SOUNDS = "sounds"
+const INI_DEFAULT_SOUND = "default_sound"
 const INI_FADE_IN = "fade_in"
 
 
 # default ringtone (per siteId):
 #
-DEFAULT_SOUND = Dict("default" => Snips.getConfig(INI_SOUND))
+DEFAULT_SOUND = Dict("default" => Snips.getConfig(INI_DEFAULT_SOUND))
 
 #
 # link between actions and intents:
