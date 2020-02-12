@@ -70,7 +70,7 @@ function scheduleWakeupAction(topic, payload)
     if wakeupTime == nothing
         DEFAULT_SOUND[siteId] = soundName
         Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
-        return true
+        return false
     end
 
     # correct time:
@@ -82,7 +82,7 @@ function scheduleWakeupAction(topic, payload)
     scheduleWakeup(wakeupTime, sound, fadeIn, siteId)
 
     Snips.publishEndSession("$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime))")
-    return true
+    return false
 end
 
 

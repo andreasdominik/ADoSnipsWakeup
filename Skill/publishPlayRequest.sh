@@ -39,6 +39,9 @@ echo -n "{
   cat $MEDIA_B64              >> $PAYLOAD_FILE
   echo "\" }"                 >> $PAYLOAD_FILE
 
+# deactivate hotwords in session manager:
+#
+publish "$TOPIC_DIALOGUE_STOP_LISTEN" '{}'
 publishFile "$TOPIC_PLAY_REQUEST" "$PAYLOAD_FILE"
 
 
@@ -51,3 +54,5 @@ while [[ $FINISHED == false ]] ; do
     FINISHED=true
   fi
 done
+
+publish "$TOPIC_DIALOGUE_START_LISTEN" '{}'
