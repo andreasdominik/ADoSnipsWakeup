@@ -21,8 +21,8 @@ Snips.setModule(@__MODULE__)
 # Slots:
 # Name of slots to be extracted from intents:
 #
-const SLOT_TIME = "WakeupTime"
-const SLOT_SOUND = "Ringtone"
+const SLOT_TIME = "wakeup_time"
+const SLOT_SOUND = "ringtone"
 
 # name of entry in config.ini:
 #

@@ -30,7 +30,7 @@ function scheduleWakeupAction(topic, payload)
 
     # values from config.ini:
     #
-    sound = Snips.getConfig(soundName)
+    sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
     if sound == nothing
         if haskey(DEFAULT_SOUND, siteId)
             soundName = DEFAULT_SOUND[siteId]
@@ -45,6 +45,7 @@ function scheduleWakeupAction(topic, payload)
         Snips.publishEndSession(:no_sounds)
         return true
     end
+    Snips.printDebug("Name: $soundName, File: $sound, PATH: $SOUNDS_PATH")
     if !isfile(sound)
         Snips.publishEndSession(:no_sound_file)
         return true

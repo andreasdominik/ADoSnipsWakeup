@@ -1,0 +1,45 @@
+# Intent definition for Calendar skill
+#
+#  (c) A. Dominik, 2020
+#
+skill = "ADoSnipsWakeup"
+developer = "andreasdominik"
+
+
+[inventory]
+intents = ["wakeupCall", "wakeupDelete"]
+slots = ["wakeup_time", "ringtone"]
+
+
+# define slots:
+# Types: "Any", "ListOfValues", "Time", "Duration", "Currency", "Number", "Ordinal"
+#
+[wakeup_time]
+slot_type = "Time"
+
+# keywords for slide shows:
+#
+[ringtone]
+slot_type = "ListOfValues"
+
+        [ringtone.synonyms]
+        "birds" = ["Vögeln", "Vögel", "Vogelgesang", "Vogelgezwitscher", "Wald", "Natur"]
+        "concerto" = ["Beethoven Violinkonzert", "Violinkonzert", "Jehudi Menuhin"]
+        "tschaikowski" = ["Tschaikowski", "Elegie", "Streichorchester", "Serenade für Streicher"]
+        "moonlight" = ["Mondscheinsonate"]
+        "schumann" = ["Träumerei", "Robert Schumann", "Schumann"]
+        "annoying" = ["Geklingel", "Klingelton", "Klingel"]
+
+
+# define phrases for intent recognition:
+# exact, regex, part
+#
+[wakeupCall]
+wakeup_a = "partial: <<Bitte|>> stelle den Wecker <<bitte|>> auf <<wakeup_time>> mit <<>> <<>> <<ringtone>>"
+wakeup_b = "partial: <<Bitte|>> stelle den Wecker <<bitte|>> auf <<wakeup_time>>"
+wakeup_c = "partial: <<Bitte|>> wecke mich <<bitte|>> <<wakeup_time>> mit <<>> <<ringtone>>"
+wakeup_d = "partial: <<Bitte|>> wecke mich <<bitte|>> <<wakeup_time>>"
+
+[wakeupDelete]
+wakeup_del_a = "partial: <<Bitte|>> schalte den Wecker <<bitte|>> aus"
+wakeup_del_b = "partial: <<Bitte|>> lösche den Wecker <<bitte|>>"
