@@ -49,11 +49,3 @@ while [[ $FINISHED == false ]] ; do
 done
 
 publish "$TOPIC_DIALOGUE_START_LISTEN" '{}'
-
-# payload for hotword on again:
-#
-HOTWORD_PAYLOAD="{
-  \"sessionId\": \"no_session\",
-  \"siteId\": \"$PLAY_SITE\"
-}"
-publish "$TOPIC_HOTWORD_ON" "$HOTWORD_PAYLOAD"

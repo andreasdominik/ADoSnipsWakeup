@@ -147,4 +147,7 @@ function triggerWakeup(topic, payload)
     cmd = `$PLAY_SCRIPT $(trigger[:media]) $(trigger[:fade_in]) $(trigger[:room])`
     Snips.tryrun(cmd; wait=true)
     Snips.publishSay("$(Snips.langText(:good_morning)) $(Snips.readableDateTime(Dates.now()))")
+
+    sleep(1.0)
+    Snips.publishHotwordOn(trigger[:room])
 end
