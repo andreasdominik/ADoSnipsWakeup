@@ -26,6 +26,7 @@ function scheduleWakeupAction(topic, payload)
     #
     siteId = payload[:siteId]
 
+Snips.printDebug("siteID read: $siteId")
     # set default sound, if no time given:
     #
     wakeupTime = Snips.readTimeFromSlot(payload, SLOT_TIME)
@@ -34,6 +35,7 @@ function scheduleWakeupAction(topic, payload)
         Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
         return false
     end
+Snips.printDebug("wakeupTime read: $wakeupTime")
 
     # descide which ringtone ti use:
     #
@@ -50,6 +52,7 @@ function scheduleWakeupAction(topic, payload)
         Snips.publishEndSession(:no_sounds)
         return true
     end
+Snips.printDebug("soundName read: $soundName")
 
     sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
     Snips.printDebug("Name: $soundName, File: $sound, PATH: $SOUNDS_PATH")
@@ -57,6 +60,7 @@ function scheduleWakeupAction(topic, payload)
         Snips.publishEndSession(:no_sound_file)
         return true
     end
+Snips.printDebug("sound file read: $sound")
 
     # get description of ringtone:
     #
@@ -64,6 +68,7 @@ function scheduleWakeupAction(topic, payload)
     if soundDescr == nothing
         soundDescr = "unknown sound"
     end
+Snips.printDebug("sound descr. read: $soundDescr")
 
 
     fadeIn = Snips.getConfig(INI_FADE_IN)
