@@ -3,12 +3,32 @@ language=de
 default_sound=birds
 
 birds=birds.mp3
+de:birds=Waldgesang
+en:birds=bird songs
+
 concerto=d-major.mp3
+de:concerto=dem Violinkonzert von Beethoven
+en:concerto=Beethovens Violin Concerto
+
 tschaikowski=elegie.mp3
+de:tschaikowski=der Elegie von Tschaikowski
+en:tschaikowski=Tschaikowskis Elegie
+
 moonlight=moonlight.mp3
+de:moonlight=der Mondscheinsonate
+en:moonlight=Moonlight Sonata
+
 schumann=traeumerei.mp3
+de:schumann=der Träumerein von Schumann
+en:schumann=Schumanns Reverie
+
 annoying=alarm.mp3
+de:annoying=lautem Lärm
+en:annoying=loud annoying noise
+
 mine=/opt/Sounds/song.ogg
+de:mine=ganz besonderer Musik
+en:mine=very special music
 
 fade_in=30
 [secret]

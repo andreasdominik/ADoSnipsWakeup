@@ -53,7 +53,7 @@ function scheduleWakeupAction(topic, payload)
 
     # get description of ringtone:
     #
-    soundDescr = Snips.getConfig(soundName, onePrefix="name")
+    soundDescr = Snips.getConfig(soundName, onePrefix=LANG)
     if soundDescr == nothing
         soundDescr = "unknown sound"
     end
