@@ -26,9 +26,11 @@ annoying=alarm.mp3
 de:annoying=lautem Lärm
 en:annoying=loud annoying noise
 
-mine=/opt/Sounds/song.ogg
-de:mine=ganz besonderer Musik
-en:mine=very special music
+# example for own ringtone:
+#
+# mine=/opt/Sounds/song.ogg
+# de:mine=ganz besonderer Musik
+# en:mine=very special music
 
 fade_in=30
 [secret]
