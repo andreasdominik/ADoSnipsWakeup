@@ -26,17 +26,6 @@ function scheduleWakeupAction(topic, payload)
     #
     siteId = payload[:siteId]
 
-Snips.printDebug("siteID read: $siteId")
-    # set default sound, if no time given:
-    #
-    wakeupTime = Snips.readTimeFromSlot(payload, SLOT_TIME)
-    if wakeupTime == nothing
-        DEFAULT_SOUND[siteId] = soundName
-        Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
-        return false
-    end
-Snips.printDebug("wakeupTime read: $wakeupTime")
-
     # descide which ringtone to use:
     #
     soundName = Snips.extractSlotValue(payload, SLOT_SOUND)
@@ -52,7 +41,6 @@ Snips.printDebug("wakeupTime read: $wakeupTime")
         Snips.publishEndSession(:no_sounds)
         return true
     end
-Snips.printDebug("soundName read: $soundName")
 
     sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
     Snips.printDebug("Name: $soundName, File: $sound, PATH: $SOUNDS_PATH")
@@ -60,7 +48,6 @@ Snips.printDebug("soundName read: $soundName")
         Snips.publishEndSession(:no_sound_file)
         return true
     end
-Snips.printDebug("sound file read: $sound")
 
     # get description of ringtone:
     #
@@ -68,7 +55,6 @@ Snips.printDebug("sound file read: $sound")
     if soundDescr == nothing
         soundDescr = "unknown sound"
     end
-Snips.printDebug("sound descr. read: $soundDescr")
 
 
     fadeIn = Snips.getConfig(INI_FADE_IN)
@@ -87,6 +73,49 @@ Snips.printDebug("sound descr. read: $soundDescr")
 
     Snips.publishEndSession("""$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime)) $(Snips.langText(:with)) $soundDescr""")
     return false
+end
+
+
+
+
+
+"""
+    ringtoneWakeupAction(topic, payload)
+
+Set the default ringtone for a siteId.
+
+"""
+function ringtoneWakeupAction(topic, payload)
+
+    # log:
+    #
+    Snips.printLog("action ringtoneWakeupAction() started.")
+
+    # get time and sound from slot:
+    #
+    siteId = payload[:siteId]
+
+    soundName = Snips.extractSlotValue(payload, SLOT_SOUND)
+    if soundName == nothing
+        Snips.publishEndSession(:which_sound)
+
+    elseif !Snips.isInConfig(soundName)
+        Snips.publishEndSession(:no_sounds)
+
+    else
+        sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
+        if sound == nothing
+            sound = ""
+        end
+        Snips.printDebug("Name: $soundName, File: $sound, PATH: $SOUNDS_PATH")
+        if !isfile(sound)
+            Snips.publishEndSession(:no_sound_file)
+        else
+            DEFAULT_SOUND[siteId] = soundName
+            Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
+        end
+    end
+    return true
 end
 
 

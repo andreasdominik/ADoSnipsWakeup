@@ -46,4 +46,5 @@ DEFAULT_SOUND = Dict("default" => Snips.getConfig(INI_DEFAULT_SOUND))
 #
 Snips.registerIntentAction("wakeupCall", scheduleWakeupAction)
 Snips.registerIntentAction("wakeupDelete", deleteWakeupAction)
+Snips.registerIntentAction("wakeupSetRingtone", ringtoneWakeupAction)
 Snips.registerTriggerAction("ADoSnipsWakeup", triggerWakeup)

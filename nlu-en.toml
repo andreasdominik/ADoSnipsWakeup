@@ -7,7 +7,7 @@ developer = "andreasdominik"
 
 
 [inventory]
-intents = ["wakeupCall", "wakeupDelete"]
+intents = ["wakeupCall", "wakeupDelete", "wakeupSetRingtone"]
 slots = ["wakeup_time", "ringtone"]
 
 
@@ -39,6 +39,8 @@ wakeup_a = "partial: <<please|>> schedule <<a|the>> wakeup <<call|>> for <<wakeu
 wakeup_b = "partial: <<<please|>> schedule <<a|the>> wakeup <<call|>> for <<wakeup_time>>"
 wakeup_d = "partial: <<<please|>> wake me up at <<wakeup_time>> with <<>> <<ringtone>>"
 wakeup_c = "partial: <<<please|>> wake me up at <<wakeup_time>>"
+
+[wakeupSetRingtone]
 ringtone_a = "partial: <<set|program> the ringtone to <<ringtone>>"
 
 [wakeupDelete]

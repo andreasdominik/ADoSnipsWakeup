@@ -1,6 +1,7 @@
 Snips.addText("de", :dunno, "Ich weiß nicht was ich machen soll")
 Snips.addText("de", :no_sounds, "Ich kann keinen Weckerton in der config-Datei finden!")
 Snips.addText("de", :no_sound_file, "Die Datei mit dem Klingelton existiert nicht")
+Snips.addText("de", :which_sound, "Ich habe nicht verstanden, welchen Klingelton ich einstellen soll")
 Snips.addText("de", :sound_set, "Der Klingelton ist auf neu eingestellt und ist jetzt")
 Snips.addText("de", :with, "mit")
 
@@ -15,6 +16,7 @@ Snips.addText("de", :good_morning, "Guten morgen, am")
 Snips.addText("en", :dunno, "I don't know what to do")
 Snips.addText("en", :no_sounds, "I am not able to find any ringtones in the config file!")
 Snips.addText("en", :no_sound_file, "I'm unable to find the file with the requested ringtone")
+Snips.addText("en", :which_sound, "I don't know which ringtone to use")
 Snips.addText("en", :sound_set, "The new ringtone is")
 Snips.addText("en", :with, "with")
 
