@@ -148,6 +148,8 @@ function triggerWakeup(topic, payload)
     Snips.tryrun(cmd; wait=true)
     Snips.publishSay("$(Snips.langText(:good_morning)) $(Snips.readableDateTime(Dates.now()))")
 
+Snips.printDebug("after say good morning")
+
     sleep(1.0)
     Snips.publishHotwordOn(trigger[:room])
 end
