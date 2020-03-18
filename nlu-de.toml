@@ -37,10 +37,11 @@ slot_type = "ListOfValues"
 [wakeupCall]
 wakeup_a = "partial: <<Bitte|>> stelle den Wecker <<bitte|>> auf <<wakeup_time>> mit <<>> <<>> <<ringtone>>"
 wakeup_b = "partial: <<Bitte|>> stelle den Wecker <<bitte|>> auf <<wakeup_time>>"
-wakeup_c = "partial: <<Bitte|>> wecke mich <<bitte|>> <<wakeup_time>> mit <<>> <<ringtone>>"
-wakeup_d = "partial: <<Bitte|>> wecke mich <<bitte|>> <<wakeup_time>>"
-ringtone_a = "partial: stelle den Klingelton auf <<ringtone>>"
+wakeup_c = "partial: <<Bitte|>> wecke mich <<bitte|>> um <<wakeup_time>> mit <<>> <<ringtone>>"
+wakeup_d = "partial: <<Bitte|>> wecke mich <<bitte|>> um <<wakeup_time>>"
+ringtone_a = "partial: wecke mich mit <<ringtone>>"
+ringtone_b = "partial: verwende <<ringtone>> als Klingelton"
 
 [wakeupDelete]
-wakeup_del_a = "partial: <<Bitte|>> schalte den Wecker <<bitte|>> aus"
+wakeup_del_a = "partial: <<Bitte|>> schalte <<bitte|>> den Wecker <<bitte|>> aus"
 wakeup_del_b = "partial: <<Bitte|>> lösche den Wecker <<bitte|>>"
