@@ -24,27 +24,34 @@ function scheduleWakeupAction(topic, payload)
 
     # get time and sound from slot:
     #
-    wakeupTime = Snips.readTimeFromSlot(payload, SLOT_TIME)
-    soundName = Snips.extractSlotValue(payload, SLOT_SOUND)
     siteId = payload[:siteId]
 
-    # values from config.ini:
+    # set default sound, if no time given:
     #
-    sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
-    if sound == nothing
+    wakeupTime = Snips.readTimeFromSlot(payload, SLOT_TIME)
+    if wakeupTime == nothing
+        DEFAULT_SOUND[siteId] = soundName
+        Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
+        return false
+    end
+
+    # descide which ringtone ti use:
+    #
+    soundName = Snips.extractSlotValue(payload, SLOT_SOUND)
+    if soundName == nothing
         if haskey(DEFAULT_SOUND, siteId)
             soundName = DEFAULT_SOUND[siteId]
-            sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
         end
     end
-    if sound == nothing
+    if soundName == nothing
         soundName = Snips.getConfig(INI_DEFAUT_SOUND)
-        sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
     end
-    if sound == nothing
+    if soundName == nothing
         Snips.publishEndSession(:no_sounds)
         return true
     end
+
+    sound = Snips.getConfigPath(soundName, SOUNDS_PATH)
     Snips.printDebug("Name: $soundName, File: $sound, PATH: $SOUNDS_PATH")
     if !isfile(sound)
         Snips.publishEndSession(:no_sound_file)
@@ -64,21 +71,6 @@ function scheduleWakeupAction(topic, payload)
         fadeIn = 0
     end
 
-
-    # check if intent is complete:
-    #
-    if wakeupTime == nothing
-        Snips.publishEndSession(:dunno)
-        return true
-    end
-
-    # set default sound, if no time given:
-    #
-    if wakeupTime == nothing
-        DEFAULT_SOUND[siteId] = soundName
-        Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
-        return false
-    end
 
     # correct time:
     #
