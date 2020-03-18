@@ -51,6 +51,13 @@ function scheduleWakeupAction(topic, payload)
         return true
     end
 
+    # get description of ringtone:
+    #
+    soundDescr = Snips.getConfig(soundName, onePrefix="name")
+    if soundDescr == nothing
+        soundDescr = "unknown sound"
+    end
+
 
     fadeIn = Snips.getConfig(INI_FADE_IN)
     if fadeIn == nothing
@@ -81,7 +88,8 @@ function scheduleWakeupAction(topic, payload)
 
     scheduleWakeup(wakeupTime, sound, fadeIn, siteId)
 
-    Snips.publishEndSession("$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime))")
+    Snips.publishEndSession("""$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime))
+    $(Snips.langText(:with)) $soundDescr")
     return false
 end
 
