@@ -85,8 +85,7 @@ Snips.printDebug("sound descr. read: $soundDescr")
 
     scheduleWakeup(wakeupTime, sound, fadeIn, siteId)
 
-    Snips.publishEndSession("""$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime))
-                               $(Snips.langText(:with)) $soundDescr""")
+    Snips.publishEndSession("""$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime)) $(Snips.langText(:with)) $soundDescr""")
     return false
 end
 
