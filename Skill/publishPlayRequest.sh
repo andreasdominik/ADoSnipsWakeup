@@ -9,18 +9,11 @@ ID="id:$(uuidgen)"
 
 # set config path:
 #
-CONFIG="/etc/susi.toml"
-source $SUSI_INSTALLATION/bin/toml2env $CONFIG
-
-# load tool funs:
-#
-source $SUSI_INSTALLATION/src/Tools/funs.sh
-source $SUSI_INSTALLATION/src/Tools/topics.sh
+source $SUSI_INSTALLATION/src/Tools/init_susi.sh
 
 # base names for recveived and subm. MQTT message files:
 #
 MQTT_BASE_NAME="QnDWakeup"
-MQTT_COUNTER=0
 
 MEDIA_B64=playWakeup.b64
 base64 -w 0 $MEDIA > $MEDIA_B64
@@ -56,3 +49,11 @@ while [[ $FINISHED == false ]] ; do
 done
 
 publish "$TOPIC_DIALOGUE_START_LISTEN" '{}'
+
+# payload for hotword on again:
+#
+HOTWORD_PAYLOAD="{
+  \"sessionId\": \"no_session\",
+  \"siteId\": \"$PLAY_SITE\"
+}"
+publish "$TOPIC_HOTWORD_ON" "$HOTWORD_PAYLOAD"
