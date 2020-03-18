@@ -37,7 +37,7 @@ Snips.printDebug("siteID read: $siteId")
     end
 Snips.printDebug("wakeupTime read: $wakeupTime")
 
-    # descide which ringtone ti use:
+    # descide which ringtone to use:
     #
     soundName = Snips.extractSlotValue(payload, SLOT_SOUND)
     if soundName == nothing
@@ -46,7 +46,7 @@ Snips.printDebug("wakeupTime read: $wakeupTime")
         end
     end
     if soundName == nothing
-        soundName = Snips.getConfig(INI_DEFAUT_SOUND)
+        soundName = Snips.getConfig(INI_DEFAULT_SOUND)
     end
     if soundName == nothing
         Snips.publishEndSession(:no_sounds)
