@@ -2,7 +2,7 @@ Snips.addText("de", :dunno, "Ich weiß nicht was ich machen soll")
 Snips.addText("de", :no_sounds, "Ich kann keinen Weckerton in der config-Datei finden!")
 Snips.addText("de", :no_sound_file, "Die Datei mit dem Klingelton existiert nicht")
 Snips.addText("de", :which_sound, "Ich habe nicht verstanden, welchen Klingelton ich einstellen soll")
-Snips.addText("de", :sound_set, "Der Klingelton ist auf neu eingestellt und ist jetzt")
+Snips.addText("de", :sound_set, "Der Klingelton ist neu eingestellt und ist jetzt")
 Snips.addText("de", :with, "mit")
 
 Snips.addText("de", :wakeup_scheduled, "Der Wecker ist eingestellt auf")

@@ -25,6 +25,11 @@ function scheduleWakeupAction(topic, payload)
     # get time and sound from slot:
     #
     siteId = payload[:siteId]
+    wakeupTime = Snips.readTimeFromSlot(payload, SLOT_TIME)
+    if wakeupTime == nothing
+        Snips.publishEndSession(:dunno)
+        return true
+    end
 
     # descide which ringtone to use:
     #
@@ -112,7 +117,7 @@ function ringtoneWakeupAction(topic, payload)
             Snips.publishEndSession(:no_sound_file)
         else
             DEFAULT_SOUND[siteId] = soundName
-            Snips.publishEndSession("$(Snips.langText(:sound_set)) $sound")
+            Snips.publishEndSession("$(Snips.langText(:sound_set)) $soundName")
         end
     end
     return true
