@@ -1,0 +1,45 @@
+# Intent definition for Calendar skill
+#
+#  (c) A. Dominik, 2020
+#
+skill = "ADoSnipsWakeup"
+developer = "andreasdominik"
+
+
+[inventory]
+intents = ["wakeupCall", "wakeupDelete"]
+slots = ["wakeup_time", "ringtone"]
+
+
+# define slots:
+# Types: "Any", "ListOfValues", "Time", "Duration", "Currency", "Number", "Ordinal"
+#
+[wakeup_time]
+slot_type = "Time"
+
+# keywords for slide shows:
+#
+[ringtone]
+slot_type = "ListOfValues"
+
+        [ringtone.synonyms]
+        "birds" = ["birds", "bird song", "birds? songs?", "forrest sounds", "nature"]
+        "concerto" = ["Beethovens Violin Concerto", "Violin conzerto", "Violin", "Jehudi Menuhin"]
+        "tschaikowski" = ["Tschaikowski", "Elegie", "Violins", "Serenade for Strings"]
+        "moonlight" = ["Moonlight Sonata"]
+        "schumann" = ["Reverie by Schumann", "Reverie", "Robert Schumann", "Schumann"]
+        "annoying" = ["annoying sound", "annoying"]
+
+
+# define phrases for intent recognition:
+# exact, regex, part
+#
+[wakeupCall]
+wakeup_a = "partial: <<please|>> schedule <<a|the>> wakeup <<call|>> for <<wakeup_time>> with <<>> <<>> <<ringtone>> <<please|>>"
+wakeup_b = "partial: <<<please|>> schedule <<a|the>> wakeup <<call|>> for <<wakeup_time>>"
+wakeup_d = "partial: <<<please|>> wake me up at <<wakeup_time>> with <<>> <<ringtone>>"
+wakeup_c = "partial: <<<please|>> wake me up at <<wakeup_time>>"
+ringtone_a = "partial: <<set|program> the ringtone to <<ringtone>>"
+
+[wakeupDelete]
+wakeup_del_a = "partial: <<reset|delete>> <<the|all>> wakeup call"
