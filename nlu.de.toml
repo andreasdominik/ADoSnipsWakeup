@@ -24,7 +24,7 @@ slot_type = "ListOfValues"
 
         [ringtone.synonyms]
         "birds" = ["Vögeln", "Vögel", "Vogelgesang", "Vogelgezwitscher", "Wald", "Natur"]
-        "concerto" = ["Beethoven Violinkonzert", "Violinkonzert", "Jehudi Menuhin"]
+        "concerto" = ["Beethoven? Violinkonzert", "Violinkonzert von Beethoven", "Violinkonzert", "Jehudi Menuhin"]
         "tschaikowski" = ["Tschaikowski", "Elegie", "Streichorchester", "Serenade für Streicher"]
         "moonlight" = ["Mondscheinsonate"]
         "schumann" = ["Träumerei", "Robert Schumann", "Schumann"]
