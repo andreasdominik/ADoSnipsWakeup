@@ -26,7 +26,7 @@ slot_type = "ListOfValues"
         "birds" = ["Vögeln", "Vögel", "Vogelgesang", "Vogelgezwitscher", "Wald", "Natur"]
         "concerto" = ["Beethoven? Violinkonzert", "Violinkonzert von Beethoven", "Violinkonzert", "Jehudi Menuhin"]
         "tschaikowski" = ["Tschaikowski", "Elegie", "Streichorchester", "Serenade für Streicher"]
-        "moonlight" = ["Mondscheinsonate"]
+        "moonlight" = ["Mondscheinsonate", "Mondschein Sonate"]
         "schumann" = ["Träumerei", "Robert Schumann", "Schumann"]
         "annoying" = ["Geklingel", "Klingelton", "Klingel"]
 
