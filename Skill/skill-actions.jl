@@ -76,7 +76,15 @@ function scheduleWakeupAction(topic, payload)
 
     scheduleWakeup(wakeupTime, sound, fadeIn, siteId)
 
-    Snips.publishEndSession("""$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime)) $(Snips.langText(:with)) $soundDescr""")
+    # calculate time until alarm:
+    #
+    inTime = makeSpokenUntilTime(wakeupTime, Dates.now())
+
+    msg = "$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime))" *
+          " $(Snips.langText(:with)) $soundDescr. " *
+          inTime
+
+    Snips.publishEndSession(msg)
     return false
 end
 
