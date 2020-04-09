@@ -43,7 +43,7 @@ wakeup_d = "partial: <<Bitte|>> wecke mich <<bitte|>> <<wakeup_time>>"
 [wakeupSetRingtone]
 ringtone_a = "partial: wecke mich mit <<ringtone>>"
 ringtone_b = "partial: verwende <<bitte|>> <<ringtone>> als <<Klingelton|Wecker>>"
-ringtone_b = "partial: stelle <<bitte|>> den Klingelton auf <<ringtone>>"
+ringtone_c = "partial: stelle <<bitte|>> den Klingelton auf <<ringtone>>"
 
 [wakeupDelete]
 wakeup_del_a = "partial: <<Bitte|>> schalte <<bitte|>> den Wecker <<bitte|>> aus"
