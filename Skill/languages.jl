@@ -17,6 +17,7 @@ Snips.addText("de", :hours, "Stunden")
 Snips.addText("de", :minute, "Minute")
 Snips.addText("de", :minutes, "Minuten")
 Snips.addText("de", :and, "und")
+Snips.addText("de", :remaining, "das sind noch")
 
 Snips.addText("en", :dunno, "I don't know what to do")
 Snips.addText("en", :no_sounds, "I am not able to find any ringtones in the config file!")
@@ -37,6 +38,7 @@ Snips.addText("en", :hours, "hours")
 Snips.addText("en", :minute, "minute")
 Snips.addText("en", :minutes, "minutes")
 Snips.addText("en", :and, "and")
+Snips.addText("en", :remaining, "That's in")
 
 
 

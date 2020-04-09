@@ -82,7 +82,7 @@ function scheduleWakeupAction(topic, payload)
 
     msg = "$(Snips.langText(:wakeup_scheduled)) $(Snips.readableDateTime(wakeupTime))" *
           " $(Snips.langText(:with)) $soundDescr. " *
-          inTime
+          " $(Snips.langText(:remaining)) $inTime"
 
     Snips.publishEndSession(msg)
     return false

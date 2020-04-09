@@ -16,7 +16,7 @@ function scheduleWakeup(wakeupTime, sound, fadeIn, siteId)
 end
 
 
-function makeSpokenUntilTime(startTime, endTime)
+function makeSpokenUntilTime(endTime, startTime)
 
     millis = Dates.CompoundPeriod(endTime - startTime)
     vals = Dates.canonicalize(millis)
