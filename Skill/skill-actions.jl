@@ -40,9 +40,11 @@ function scheduleWakeupAction(topic, payload)
         end
     end
     if soundName == nothing
-        sounds = Snips.getConfig(INI_DEFAULT_SOUND, multiple=true)
-        if sounds != nothing
-            soundName = StatsBase.sample(sounds)
+        defaultSounds = Snips.getConfig(INI_DEFAULT_SOUND, multiple=true)
+        Snips.printLog("sounds $defaultSounds")
+        if defaultSounds != nothing
+            soundName = StatsBase.sample(defaultSounds)
+            Snips.printLog("soundName $soundName")
         end
     end
     if soundName == nothing
