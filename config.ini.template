@@ -1,6 +1,6 @@
 [global]
 language=de
-default_sound=birds
+default_sound=birds,concerto,tschaikowski,moonlight,schumann
 
 birds=birds.mp3
 de:birds=Waldgesang

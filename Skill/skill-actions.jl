@@ -40,7 +40,10 @@ function scheduleWakeupAction(topic, payload)
         end
     end
     if soundName == nothing
-        soundName = Snips.getConfig(INI_DEFAULT_SOUND)
+        sounds = Snips.getConfig(INI_DEFAULT_SOUND, multiple=true)
+        if sounds != nothing
+            soundName = StatsBase.sample(sounds)
+        end
     end
     if soundName == nothing
         Snips.publishEndSession(:no_sounds)

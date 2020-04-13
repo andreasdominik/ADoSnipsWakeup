@@ -7,6 +7,7 @@
 module ADoSnipsWakeup
 
 import Dates
+import StatsBase
 
 const MODULE_DIR = @__DIR__
 const APP_DIR = replace(MODULE_DIR, r"/[^/]*/?$"=>"")
