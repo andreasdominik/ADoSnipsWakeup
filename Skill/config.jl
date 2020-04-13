@@ -42,7 +42,7 @@ const INI_FADE_IN = "fade_in"
 
 # default ringtone (per siteId):
 #
-DEFAULT_SOUND = Dict("default" => Snips.getConfig(INI_DEFAULT_SOUND))
+DEFAULT_SOUND = Dict()
 
 #
 # link between actions and intents:
