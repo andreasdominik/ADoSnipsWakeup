@@ -1,5 +1,4 @@
 [global]
-language=de
 default_sound=birds,concerto,tschaikowski,moonlight,schumann
 
 birds=birds.mp3
